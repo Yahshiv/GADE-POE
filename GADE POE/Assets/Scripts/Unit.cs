@@ -153,9 +153,19 @@ public class Unit : MonoBehaviour
         xDist = (int)Mathf.Abs(target.transform.position.x - transform.position.x);
         zDist = (int)Mathf.Abs(target.transform.position.z - transform.position.z);
 
-        if(xDist>=zDist)
+        if(Mathf.Abs(xDist) >= Mathf.Abs(zDist))
         {
             moves = xDist > 0 ? 1 : -1;
+
+            //if(xDist > 0)
+            //{
+            //    moves = 1;
+            //}
+            //else
+            //{
+            //    moves = -1;
+            //}
+
             transform.position = new Vector3((transform.position.x + moves), transform.position.y, transform.position.z);
         }
         else
@@ -221,7 +231,7 @@ public class Unit : MonoBehaviour
             atk = 5;
             this.type = type;
             range = 1.9f;
-}
+        }
         else if(type=="Archer")
         {
             maxHealth = 15;
