@@ -10,16 +10,23 @@ public class Unit : MonoBehaviour
     [SerializeField] float range;
     [SerializeField] bool alive = true;
 
+
     GameObject thisUnit;
 
     float distance, tempDistance;
     Unit target, targeted;
     Building targetB, targetedB;
+    bool wizWin;
 
     public int Health
     {
         get => health;
         set => health = value;
+    }
+
+    public int MaxHealth
+    {
+        get => maxHealth;
     }
 
     public string Team
@@ -62,38 +69,47 @@ public class Unit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetTarget();
-        
-        if(targetedB != null)
+        if(RoundCounter.round%speed==0 && alive)
         {
-            tempDistance = (targetedB.transform.position - transform.position).magnitude;
-            if (tempDistance <= range)
-            {
-                Attack(targetedB);
-            }
-            else
-            {
-                Move(targetedB);
-            }
-        }
-        else if(targeted != null)
-        {
-            tempDistance = (targeted.transform.position - transform.position).magnitude;
-            if (tempDistance <= range)
-            {
-                Attack(targeted);
-            }
-            else
-            {
-                Move(targeted);
-            }
-        }
-        else
-        {
-            Debug.Log("No Valid Targets Found");
-        }
+            GetTarget();
 
-        WithinBounds();
+            if (targetedB != null && team != "Wizard")
+            {
+                tempDistance = (targetedB.transform.position - transform.position).magnitude;
+                if (tempDistance <= range)
+                {
+                    Attack(targetedB);
+                }
+                else
+                {
+                    Move(targetedB);
+                }
+            }
+            else if (targeted != null)
+            {
+                tempDistance = (targeted.transform.position - transform.position).magnitude;
+                if (tempDistance <= range)
+                {
+                    Attack(targeted);
+                }
+                else
+                {
+                    Move(targeted);
+                }
+            }
+            else if (team != "Wizard")
+            {
+                RoundCounter.running = false;
+                RoundCounter.winTeam = team;
+            }
+            else if(wizWin)
+            {
+                RoundCounter.running = false;
+                RoundCounter.winTeam = "Wizard";
+            }
+
+            WithinBounds();
+        }
     }
 
     void GetTarget()
@@ -104,15 +120,16 @@ public class Unit : MonoBehaviour
         distance = float.MaxValue;
         targeted = null;
         targetedB = null;
+        wizWin = true;
 
         if(buildings!=null)
             foreach (GameObject building in buildings)
             {
                 targetB = building.GetComponent<Building>();
+                Debug.Log("my team " + team + " target team " + targetB.Team);
 
                 if (targetB == null || targetB.Team == Team)
                 {
-                    Debug.Log("my team "+team+" target team "+targetB.Team);
                     continue;
                 }
 
@@ -136,6 +153,11 @@ public class Unit : MonoBehaviour
                     continue;
                 }
 
+                if(target.Team != "Wizard")
+                {
+                    wizWin = false;
+                }
+
                 tempDistance = (unit.transform.position - transform.position).magnitude;
 
                 if (tempDistance < distance)
@@ -150,21 +172,12 @@ public class Unit : MonoBehaviour
     {
         int xDist, zDist, moves;
 
-        xDist = (int)Mathf.Abs(target.transform.position.x - transform.position.x);
-        zDist = (int)Mathf.Abs(target.transform.position.z - transform.position.z);
+        xDist = (int)(target.transform.position.x - transform.position.x);
+        zDist = (int)(target.transform.position.z - transform.position.z);
 
         if(Mathf.Abs(xDist) >= Mathf.Abs(zDist))
         {
             moves = xDist > 0 ? 1 : -1;
-
-            //if(xDist > 0)
-            //{
-            //    moves = 1;
-            //}
-            //else
-            //{
-            //    moves = -1;
-            //}
 
             transform.position = new Vector3((transform.position.x + moves), transform.position.y, transform.position.z);
         }
@@ -186,19 +199,49 @@ public class Unit : MonoBehaviour
         {
             moves = xDist > 0 ? 1 : -1;
             transform.position = new Vector3(transform.position.x + moves, transform.position.y, transform.position.z);
-            Debug.Log("Moving to (" + (transform.position.x + moves) + "," + transform.position.y + "," + transform.position.z + ")");
+            //Debug.Log("Moving to (" + (transform.position.x + moves) + "," + transform.position.y + "," + transform.position.z + ")");
 
         }
         else
         {
             moves = zDist > 0 ? 1 : -1;
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moves);
-            Debug.Log("Moving to ("+transform.position.x+","+transform.position.y+","+(transform.position.z+moves)+")");
+            //Debug.Log("Moving to ("+transform.position.x+","+transform.position.y+","+(transform.position.z+moves)+")");
         }
     }
     void Attack(Unit target)
     {
-        target.Health -= atk;
+        if(team!="Wizard")
+        {
+            target.Health -= atk;
+        }
+        else
+        {
+            GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
+
+            foreach (GameObject unit in units)
+            {
+                target = unit.GetComponent<Unit>();
+
+                if (target == null || target.Team == Team)
+                {
+                    continue;
+                }
+
+                tempDistance = (unit.transform.position - transform.position).magnitude;
+
+                if (tempDistance <= range)
+                {
+                    targeted = target;
+                    targeted.Health -= atk;
+
+                    if (targeted.Health <= 0)
+                    {
+                        targeted.Die();
+                    }
+                }
+            }
+        }
 
         if(target.Health <= 0)
         {
@@ -242,11 +285,11 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            maxHealth = 25;
-            speed = 1;
-            atk = 10;
+            maxHealth = 10;
+            speed = 3;
+            atk = 15;
             this.type = type;
-            range = 1.9f;
+            range = 1.5f;
         }
         health = maxHealth;
     }

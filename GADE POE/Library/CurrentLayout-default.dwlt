@@ -431,23 +431,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: d656ffff
-      m_LastClickedID: -43306
-      m_ExpandedIDs: 6cfbffff
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 9a4bf2ffae4bf2ffba4bf2ffd84bf2ff524df2ffbe6fffffde7dffff7a8cffffa28cffffa4a1ffff46abffff54abffff08f8ffff6cfbffff34360000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: Text
+        m_OriginalName: Text
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: 14084
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 10}
       m_SearchString: 
@@ -534,19 +534,19 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Scripts
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Yahshiv\Documents\GitHub\GADE-POE\GADE POE
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ea2f0000
-    m_LastClickedID: 12266
+    m_SelectedIDs: 8c300000
+    m_LastClickedID: 12428
     m_ExpandedIDs: 000000009e2f0000bc3100007434000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -748,9 +748,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 10, y: -1, z: 10}
+    m_Target: {x: 12.867231, y: -1.8811831, z: 9.981661}
     speed: 2
-    m_Value: {x: 10, y: -1, z: 10}
+    m_Value: {x: 12.867231, y: -1.8811831, z: 9.981661}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -773,19 +773,19 @@ MonoBehaviour:
     yGrid:
       m_Target: 1
       speed: 2
-      m_Value: 1
+      m_Value: 0
     zGrid:
       m_Target: 0
       speed: 2
-      m_Value: 0
+      m_Value: 1
   m_Rotation:
-    m_Target: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+    m_Target: {x: 0.11642497, y: 0.84278554, z: -0.2022173, w: 0.48511228}
     speed: 2
-    m_Value: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+    m_Value: {x: 0.116117574, y: 0.84348357, z: -0.20238484, w: 0.4838311}
   m_Size:
-    m_Target: 25.713184
+    m_Target: 19.065022
     speed: 2
-    m_Value: 25.713184
+    m_Value: 19.065022
   m_Ortho:
     m_Target: 1
     speed: 2

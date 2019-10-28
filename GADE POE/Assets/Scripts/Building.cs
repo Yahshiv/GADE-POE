@@ -13,6 +13,12 @@ public class Building : MonoBehaviour
         get => health;
         set => health = value;
     }
+
+    public int MaxHealth
+    {
+        get => maxHealth;
+    }
+
     public string Team
     {
         get => team;
@@ -70,5 +76,6 @@ public class Building : MonoBehaviour
             speed = 5;
             this.type = type;
         }
+        health = maxHealth;
     }
 }

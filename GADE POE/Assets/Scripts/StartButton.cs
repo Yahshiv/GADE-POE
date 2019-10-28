@@ -22,5 +22,9 @@ public class StartButton : MonoBehaviour
 
         MapSizeManager.updateMap = true;
         RandomPopulation.updatePop = true;
+
+        RoundCounter.round = 0;
+        RoundCounter.winTeam = "";
+        RoundCounter.running = true;
     }
 }

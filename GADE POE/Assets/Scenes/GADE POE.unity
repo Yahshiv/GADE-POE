@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 353296822}
   - component: {fileID: 353296821}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: VictorText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -657,7 +657,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 'Victor: '
 --- !u!222 &353296822
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3008,8 +3008,9 @@ GameObject:
   - component: {fileID: 1978364730}
   - component: {fileID: 1978364732}
   - component: {fileID: 1978364731}
+  - component: {fileID: 1978364733}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Round Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3065,7 +3066,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 'Round: '
 --- !u!222 &1978364732
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3074,3 +3075,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978364729}
   m_CullTransparentMesh: 0
+--- !u!114 &1978364733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978364729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 316db3fa38676a54ea4ba171df7c0aee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roundText: {fileID: 1978364731}
+  winner: {fileID: 353296821}
