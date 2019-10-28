@@ -8,6 +8,15 @@ public class Building : MonoBehaviour
     protected string team;
     protected string type;
     protected bool alive = true;
+
+    [SerializeField] GameObject meleeRed;
+    [SerializeField] GameObject meleeBlue;
+    [SerializeField] GameObject rangedRed;
+    [SerializeField] GameObject rangedBlue;
+
+    [SerializeField] GameObject product;
+
+    public static int redResources = 0, blueResources = 0;
     public int Health
     {
         get => health;
@@ -53,7 +62,51 @@ public class Building : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(RoundCounter.running)
+            TurnSimulator();
+    }
+
+    void TurnSimulator()
+    {
+        if (RoundCounter.round % speed == 0 && alive)
+        {
+            if (type == "Resource")
+            {
+                if (team == "Blue")
+                {
+                    blueResources += 3;
+                }
+                else
+                {
+                    redResources += 3;
+                }
+            }
+            else
+            {
+                if (team == "Blue")
+                {
+                    if (blueResources >= 20)
+                    {
+                        //spawn a blue unit randomly ranged or melee
+                        product = 0 == Random.Range(0, 2) ? rangedBlue : meleeBlue;
+                        product.transform.position = transform.position;
+                        Instantiate(product);
+                        blueResources -= 20;
+                    }
+                }
+                else
+                {
+                    if (redResources >= 20)
+                    {
+                        //spawn a red unit randomly ranged or melee
+                        product = 0 == Random.Range(0, 2) ? rangedRed : meleeRed;
+                        product.transform.position = transform.position;
+                        Instantiate(product);
+                        redResources -= 20;
+                    }
+                }
+            }
+        }
     }
 
     public void Die()

@@ -28,10 +28,6 @@ public class MapSizeManager : MonoBehaviour
             transform.localScale = new Vector3(mapX, 2, mapZ);
             transform.position = new Vector3(mapX / 2, -1, mapZ / 2);
 
-            camZoom = mapX > mapZ ? mapX : mapZ;
-
-            mainCamera.transform.position = new Vector3(mapX / 2, camZoom, mapZ / 2);
-
             updateMap = false;
         }
     }

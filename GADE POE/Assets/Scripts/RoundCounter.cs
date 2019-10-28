@@ -7,6 +7,8 @@ public class RoundCounter : MonoBehaviour
 {
     [SerializeField] Text roundText;
     [SerializeField] Text winner;
+    [SerializeField] Text redRes;
+    [SerializeField] Text blueRes;
 
     public static int round = 0;
     public static bool running = true;
@@ -26,8 +28,13 @@ public class RoundCounter : MonoBehaviour
             round++;
             roundText.text = "Round: " + round;
             winTeam = "";
+
+            System.Threading.Thread.Sleep(100);
         }
 
         winner.text = "Victor: " + winTeam;
+
+        redRes.text = "Red $"+ Building.redResources;
+        blueRes.text = "Blue $" + Building.blueResources;
     }
 }

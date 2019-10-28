@@ -14,8 +14,8 @@ public class Unit : MonoBehaviour
     GameObject thisUnit;
 
     float distance, tempDistance;
-    Unit target, targeted;
-    Building targetB, targetedB;
+    [SerializeField] Unit target, targeted;
+    [SerializeField] Building targetB, targetedB;
     bool wizWin;
 
     public int Health
@@ -69,7 +69,22 @@ public class Unit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(RoundCounter.round%speed==0 && alive)
+        if (RoundCounter.running)
+        {
+            if((float)health/maxHealth > 0.25f)
+            {
+                TurnSimulator();
+            }
+            else
+            {
+                Flee();
+            }
+        }    
+    }
+
+    void TurnSimulator()
+    {
+        if (RoundCounter.round % speed == 0 && alive)
         {
             GetTarget();
 
@@ -102,10 +117,14 @@ public class Unit : MonoBehaviour
                 RoundCounter.running = false;
                 RoundCounter.winTeam = team;
             }
-            else if(wizWin)
+            else if (wizWin)
             {
                 RoundCounter.running = false;
                 RoundCounter.winTeam = "Wizard";
+            }
+            else
+            {
+                Debug.Log("Confused Wizard");
             }
 
             WithinBounds();
@@ -120,6 +139,8 @@ public class Unit : MonoBehaviour
         distance = float.MaxValue;
         targeted = null;
         targetedB = null;
+        target = null;
+        targetB = null;
         wizWin = true;
 
         if(buildings!=null)
@@ -143,7 +164,8 @@ public class Unit : MonoBehaviour
                 }
             }
 
-        if(units!=null)
+        distance = float.MaxValue;
+        if (units!=null)
             foreach (GameObject unit in units)
             {
                 target = unit.GetComponent<Unit>();
@@ -158,7 +180,7 @@ public class Unit : MonoBehaviour
                     wizWin = false;
                 }
 
-                tempDistance = (unit.transform.position - transform.position).magnitude;
+                tempDistance = Mathf.Abs((unit.transform.position - transform.position).magnitude);
 
                 if (tempDistance < distance)
                 {
@@ -166,6 +188,29 @@ public class Unit : MonoBehaviour
                     distance = tempDistance;
                 }
             }
+    }
+
+    void Flee()
+    {
+        int rnd = Random.Range(0, 4);
+
+        switch (rnd)
+        {
+            case 0:
+                transform.position = new Vector3((transform.position.x + 1), transform.position.y, transform.position.z);
+                break;
+            case 1:
+                transform.position = new Vector3((transform.position.x - 1), transform.position.y, transform.position.z);
+                break;
+            case 2:
+                transform.position = new Vector3((transform.position.x), transform.position.y, transform.position.z + 1);
+                break;
+            default:
+                transform.position = new Vector3((transform.position.x), transform.position.y, transform.position.z - 1);
+                break;
+        }
+
+        WithinBounds();
     }
 
     void Move(Unit target)
@@ -263,6 +308,16 @@ public class Unit : MonoBehaviour
     {
         Destroy(gameObject);
         alive = false;
+
+        if(team=="Red")
+        {
+            Building.redResources++;
+        }
+
+        if(team=="Blue")
+        {
+            Building.blueResources++;
+        }
     }
 
     public void SetType(string type)
@@ -270,7 +325,7 @@ public class Unit : MonoBehaviour
         if(type=="Knight")
         {
             maxHealth = 20;
-            speed = 1;
+            speed = 2;
             atk = 5;
             this.type = type;
             range = 1.9f;
@@ -278,7 +333,7 @@ public class Unit : MonoBehaviour
         else if(type=="Archer")
         {
             maxHealth = 15;
-            speed = 2;
+            speed = 3;
             atk = 7;
             this.type = type;
             range = 3.5f;
@@ -286,10 +341,10 @@ public class Unit : MonoBehaviour
         else
         {
             maxHealth = 10;
-            speed = 3;
-            atk = 15;
+            speed = 2;
+            atk = 3;
             this.type = type;
-            range = 1.5f;
+            range = 1.9f;
         }
         health = maxHealth;
     }

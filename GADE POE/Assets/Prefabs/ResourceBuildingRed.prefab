@@ -14902,7 +14902,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8827734678709161772}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 2}
+  m_LocalPosition: {x: 16, y: 0, z: 17}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 5622037406474104241}
@@ -14928,3 +14928,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf53fcb52cbf951459f6f601279c5602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeRed: {fileID: 3253961464756112334, guid: 7123d610ee5d28a4f86311b0c679be95,
+    type: 3}
+  meleeBlue: {fileID: 7245056470017150413, guid: ec0fcde2dd4f69549b15dfef98e26244,
+    type: 3}
+  rangedRed: {fileID: 5769962858973911759, guid: 6f1a6bc8a23591c4c800239c00087593,
+    type: 3}
+  rangedBlue: {fileID: 4664385243853442671, guid: bd5a2e457092142408850ab0ee63c0de,
+    type: 3}
+  product: {fileID: 0}

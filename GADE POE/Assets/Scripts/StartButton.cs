@@ -24,7 +24,8 @@ public class StartButton : MonoBehaviour
         RandomPopulation.updatePop = true;
 
         RoundCounter.round = 0;
-        RoundCounter.winTeam = "";
+        Building.redResources = 0;
+        Building.blueResources = 0;
         RoundCounter.running = true;
     }
 }
